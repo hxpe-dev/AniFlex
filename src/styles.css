@@ -1,0 +1,49 @@
+@import './theme.css';
+@import './fonts.css';
+
+body {
+  margin: 0;
+  font-family: 'Montserrat';
+  background: var(--bg-color);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  text-align: center;
+}
+
+.container {
+  padding: 2rem;
+}
+
+.title {
+  font-size: 3rem;
+  color: #2d2dff;
+  margin-bottom: 0.5rem;
+}
+
+.subtitle {
+  font-size: 1.2rem;
+  margin-bottom: 2rem;
+}
+
+.username-form input {
+  padding: 0.5rem;
+  font-size: 1rem;
+  width: 250px;
+  margin-right: 1rem;
+}
+
+.username-form button {
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  cursor: pointer;
+  background-color: #2d2dff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+}
+
+.username-form button:hover {
+  background-color: #1a1aff;
+}

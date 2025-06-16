@@ -1,0 +1,138 @@
+@import '../theme.css';
+
+.user-stats-page {
+  max-width: 960px;
+  margin: 2rem auto;
+  padding: 0 1rem;
+  -webkit-user-select: none; /* Safari */
+  -moz-user-select: none;    /* Firefox */
+  -ms-user-select: none;     /* IE10+/Edge */
+  user-select: none;
+}
+
+.user-stats-page img {
+  pointer-events: none;
+  -webkit-user-drag: none;
+}
+
+.user-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.avatar {
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+}
+
+.username {
+  font-size: 2rem;
+  font-weight: 600;
+}
+
+.stats-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.stat-card {
+  background: var(--surface-bg);
+  border-radius: 10px;
+  box-shadow: 0 3px 10px var(--shadow);
+  padding: 1rem;
+  text-align: center;
+  transition: transform 0.2s ease;
+}
+
+.stat-card:hover {
+  transform: translateY(-3px);
+}
+
+.stat-card p {
+  margin: 0;
+  color: var(--secondary-text-color);
+}
+
+.stat-card strong {
+  font-size: 1.8rem;
+  color: var(--text-color);
+}
+
+.favorites-carousel {
+  margin-top: 3rem;
+}
+
+.carousel-container {
+  display: flex;
+  overflow-x: hidden;
+  gap: 1rem;
+  padding: 1rem;
+}
+
+.carousel-card {
+  transition: transform 0.07s ease;
+  will-change: transform;
+  flex: 0 0 auto;
+  background: var(--surface-bg);
+  border-radius: 8px;
+  width: 150px;
+  text-align: center;
+  white-space: nowrap;
+  box-shadow: 0 2px 5px var(--shadow);
+  overflow: hidden;
+}
+
+.anime-title {
+  font-weight: 500;
+  overflow: hidden;
+  margin: 8px;
+}
+
+.title-wrapper {
+  position: relative;
+  font-weight: 500;
+  overflow: hidden;
+  margin: 8px;
+}
+
+.scrolling-title {
+  display: inline-block;
+  white-space: nowrap;
+  animation: none;
+  position: relative;
+}
+
+.carousel-card:hover .scrolling-title.scrollable {
+  animation: scroll-loop 6s linear infinite;
+}
+
+.scrolling-title.scrollable::after {
+  content: attr(data-text);
+  padding-left: 2rem;
+  position: absolute;
+  left: 100%;
+  top: 0;
+  white-space: nowrap;
+}
+
+@keyframes scroll-loop {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+.anime-img {
+  width: 150px;
+  height: 200px;
+  object-fit: cover;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+}

@@ -1,0 +1,29 @@
+:root {
+  --bg-color: #f8f8f8;
+  --text-color: #0e0d0d;
+  --secondary-text-color: #0e0d0d;
+  --surface-bg: #ffffff;
+  --card-bg: #afafae;
+  --shadow: rgba(0, 0, 0, 0.1);
+  --highlight: #0077ff;
+}
+
+/* Dark Theme */
+.theme-dark {
+  --bg-color: #121212;
+  --text-color: #f0f0f0;
+  --surface: #838282;
+  --card-bg: #1e1e2f;
+  --shadow: rgba(0, 0, 0, 0.5);
+  --highlight: #7289da;
+}
+
+/* Neon Theme */
+.theme-neon {
+  --bg-color: #0f0f1f;
+  --text-color: #f0faff;
+  --surface: #ffffff;
+  --card-bg: #1a1a30;
+  --shadow: rgba(0, 255, 255, 0.3);
+  --highlight: #0ff;
+}
