@@ -20,24 +20,21 @@ It's like your AniList profile hit the gym and leveled up with React + ✨style�
 
 ---
 
-## 🎬 Demo
+## 🎬 Website
 
 Wanna see it in action?
 
-👉 Go to  
-```bash
-URL COMING SOON
-```
+👉 Go to URL COMING SOON  
 Input your Anilist username (or flex with a friend's stats 👀).
->> Note: Ensure your profile is public.
+> Note: Ensure your profile is public.
 
 ---
 
 ## 💻 How to Run It Locally
 1. Clone the source code
 ```bash
-git clone https://github.com/yourusername/aniflex.git
-cd aniflex
+git clone https://github.com/hxpe-dev/AniFlex.git
+cd AniFlex
 ```
 
 2. Install the packages 
