@@ -18,12 +18,13 @@ body {
 
 .title {
   font-size: 3rem;
-  color: #2d2dff;
+  color: var(--accent-color);
   margin-bottom: 0.5rem;
 }
 
 .subtitle {
   font-size: 1.2rem;
+  color: var(--text-color);
   margin-bottom: 2rem;
 }
 
@@ -38,12 +39,12 @@ body {
   padding: 0.5rem 1rem;
   font-size: 1rem;
   cursor: pointer;
-  background-color: #2d2dff;
-  color: white;
+  background-color: var(--accent-color);
+  color: var(--text-color);
   border: none;
   border-radius: 4px;
 }
 
 .username-form button:hover {
-  background-color: #1a1aff;
+  background-color: var(--accent-color);
 }

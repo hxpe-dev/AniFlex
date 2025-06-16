@@ -5,7 +5,7 @@ It's like your AniList profile hit the gym and leveled up with React + ✨style�
 
 > Ever wanted your anime faves to glide, titles to scroll like an anime credit roll,  
 > and everything to just *look* cool while still showing off how much anime you've crushed?  
-> Yup. That’s AniFlex.
+> Yup. That’s **AniFlex**.
 
 ---
 

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { fetchAniListUser } from '../utils/anilist';
 import './UserStats.css';
+import { getAnimeWatchPercentile } from '../utils/watchPercentile';
 
 type GenreStat = {
   genre: string;
@@ -119,7 +120,7 @@ const UserStats: React.FC = () => {
     };
 
     const startMomentum = () => {
-      const decay = 0.995; // friction
+      const decay = 0.993; // friction
       const minVelocity = 0.0000001;
 
       const step = () => {
@@ -158,7 +159,12 @@ const UserStats: React.FC = () => {
     <div className="user-stats-page">
       <header className="user-header">
         <img src={userData.avatar.large} alt={userData.name} className="avatar" />
-        <h1 className="username">{userData.name}</h1>
+        <div className="username-wrapper">
+          <h1 className="username">{userData.name}</h1>
+          <span className="user-percentile">
+            {getAnimeWatchPercentile(stats?.count ?? 0)}
+          </span>
+        </div>
       </header>
 
       <section className="stats-cards">

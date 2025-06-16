@@ -1,6 +1,6 @@
 // src/components/Layout.tsx
 import React, { useEffect, useState } from 'react';
-import { Outlet } from 'react-router-dom';
+import { Outlet, Link } from 'react-router-dom';
 import './Layout.css'; // for theme-selector styling
 
 const Layout: React.FC = () => {
@@ -14,6 +14,7 @@ const Layout: React.FC = () => {
 
   return (
     <>
+      <Link to="/" className="aniflex-button">AniFlex</Link>
       <div className="theme-selector">
         <label htmlFor="theme-select">Theme:</label>
         <select

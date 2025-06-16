@@ -14,3 +14,24 @@
   padding: 4px 8px;
   font-family: inherit;
 }
+
+.aniflex-button {
+  position: fixed;
+  top: 16px;
+  left: 20px;
+  z-index: 1000;
+  font-size: 1.25rem;
+  font-weight: bold;
+  text-decoration: none;
+  color: var(--text-color);
+  background: var(--surface-bg);
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px var(--shadow);
+  transition: background 0.2s ease;
+}
+
+.aniflex-button:hover {
+  background: var(--accent-color);
+  color: var(--on-accent-color);
+}

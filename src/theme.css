@@ -4,8 +4,9 @@
   --secondary-text-color: #0e0d0d;
   --surface-bg: #ffffff;
   --card-bg: #afafae;
-  --shadow: rgba(0, 0, 0, 0.1);
+  --accent-color: #0077ff;
   --highlight: #0077ff;
+  --shadow: rgba(0, 0, 0, 0.1);
 }
 
 /* Dark Theme */
@@ -14,8 +15,9 @@
   --text-color: #f0f0f0;
   --surface: #838282;
   --card-bg: #1e1e2f;
-  --shadow: rgba(0, 0, 0, 0.5);
+  --accent-color: #0077ff;
   --highlight: #7289da;
+  --shadow: rgba(0, 0, 0, 0.5);
 }
 
 /* Neon Theme */
@@ -24,6 +26,7 @@
   --text-color: #f0faff;
   --surface: #ffffff;
   --card-bg: #1a1a30;
-  --shadow: rgba(0, 255, 255, 0.3);
+  --accent-color: #0077ff;
   --highlight: #0ff;
+  --shadow: rgba(0, 255, 255, 0.3);
 }

@@ -33,6 +33,24 @@
   font-weight: 600;
 }
 
+.username-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.user-percentile {
+  margin-top: 5px; /* THIS IS FINE TUNING TO MAKE IT LOOK BETTER */
+  background: var(--accent-color);
+  color: white;
+  padding: 0.25rem 0.5rem;
+  border-radius: 999px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
 .stats-cards {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
@@ -72,6 +90,10 @@
   overflow-x: hidden;
   gap: 1rem;
   padding: 1rem;
+}
+
+.carousel-container:hover {
+  cursor: grab;
 }
 
 .carousel-card {
