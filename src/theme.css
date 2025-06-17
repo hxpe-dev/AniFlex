@@ -1,10 +1,11 @@
 :root {
   --bg-color: #f8f8f8;
   --text-color: #0e0d0d;
-  --secondary-text-color: #0e0d0d;
+  --secondary-text-color: #3b3737;
   --surface-bg: #ffffff;
-  --card-bg: #afafae;
+  --card-bg: #f0f0f0;
   --accent-color: #0077ff;
+  --accent-text-color: #ffffff;
   --highlight: #0077ff;
   --shadow: rgba(0, 0, 0, 0.1);
 }
@@ -16,6 +17,7 @@
   --surface: #838282;
   --card-bg: #1e1e2f;
   --accent-color: #0077ff;
+  --accent-text-color: #ffffff;
   --highlight: #7289da;
   --shadow: rgba(0, 0, 0, 0.5);
 }
@@ -27,6 +29,7 @@
   --surface: #ffffff;
   --card-bg: #1a1a30;
   --accent-color: #0077ff;
+  --accent-text-color: #ffffff;
   --highlight: #0ff;
   --shadow: rgba(0, 255, 255, 0.3);
 }

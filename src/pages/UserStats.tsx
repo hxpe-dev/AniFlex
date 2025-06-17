@@ -1,8 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { useParams } from 'react-router-dom';
 import { fetchAniListUser } from '../utils/anilist';
 import './UserStats.css';
-import { getAnimeWatchPercentile } from '../utils/watchPercentile';
+import { getAnimeWatchPercentile, getMangaReadPercentile } from '../utils/badges';
+import FavoritesCarousel from '../components/FavoritesCarousel';
+import { toPng } from 'html-to-image';
+import { saveAs } from 'file-saver';
 
 type GenreStat = {
   genre: string;
@@ -10,6 +13,15 @@ type GenreStat = {
 };
 
 type FavoriteAnime = {
+  title: {
+    english: string | null;
+  };
+  coverImage: {
+    extraLarge: string;
+  };
+};
+
+type FavoriteManga = {
   title: {
     english: string | null;
   };
@@ -32,10 +44,20 @@ type AniListUser = {
       episodesWatched: number;
       genres: GenreStat[];
     };
+    manga: {
+      count: number;
+      meanScore: number;
+      chaptersRead: number;
+      volumesRead: number;
+      genres: GenreStat[];
+    };
   };
   favourites: {
     anime: {
       nodes: FavoriteAnime[];
+    };
+    manga: {
+      nodes: FavoriteManga[];
     };
   };
 };
@@ -45,9 +67,16 @@ const UserStats: React.FC = () => {
   const [userData, setUserData] = useState<AniListUser | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const statsRef = useRef<HTMLDivElement>(null);
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  const favorites = userData?.favourites?.anime?.nodes?.filter(a => a.title.english) ?? [];
+  const [activeTab, setActiveTab] = useState<'anime' | 'manga'>('anime');
+  const [slideDirection, setSlideDirection] = useState<'left' | 'right'>('right');
+
+  const handleTabChange = (tab: 'anime' | 'manga') => {
+    if (tab === activeTab) return;
+    setSlideDirection(tab === 'anime' ? 'left' : 'right');
+    setActiveTab(tab);
+  };
 
   useEffect(() => {
     if (!username) return;
@@ -63,178 +92,140 @@ const UserStats: React.FC = () => {
       });
   }, [username]);
 
-  useEffect(() => {
-    if (!favorites.length) return;
-
-    const carousel = document.querySelector<HTMLElement>('.carousel-container');
-    if (!carousel) return;
-
-    let isDown = false;
-    let startX = 0;
-    let scrollLeft = 0;
-
-    // Track velocity
-    let lastX = 0;
-    let velocity = 0;
-    let momentumID: number | null = null;
-
-    const onMouseDown = (e: MouseEvent) => {
-      isDown = true;
-      carousel.classList.add('dragging');
-      startX = e.pageX - carousel.offsetLeft;
-      scrollLeft = carousel.scrollLeft;
-      lastX = e.pageX;
-      velocity = 0;
-
-      if (momentumID !== null) {
-        cancelAnimationFrame(momentumID);
-        momentumID = null;
-      }
-    };
-
-    const onMouseLeave = () => {
-      if (isDown) {
-        isDown = false;
-        carousel.classList.remove('dragging');
-        startMomentum();
-      }
-    };
-
-    const onMouseUp = () => {
-      if (isDown) {
-        isDown = false;
-        carousel.classList.remove('dragging');
-        startMomentum();
-      }
-    };
-
-    const onMouseMove = (e: MouseEvent) => {
-      if (!isDown) return;
-      const x = e.pageX - carousel.offsetLeft;
-      const walk = (x - startX) * 1; // scroll speed multiplier (1 default)
-      carousel.scrollLeft = scrollLeft - walk;
-
-      // Calculate velocity
-      velocity = e.pageX - lastX;
-      lastX = e.pageX;
-    };
-
-    const startMomentum = () => {
-      const decay = 0.993; // friction
-      const minVelocity = 0.0000001;
-
-      const step = () => {
-        if (Math.abs(velocity) > minVelocity) {
-          carousel.scrollLeft -= velocity;
-          velocity *= decay;
-          momentumID = requestAnimationFrame(step);
-        } else {
-          momentumID = null;
-        }
-      };
-      momentumID = requestAnimationFrame(step);
-    };
-
-    carousel.addEventListener('mousedown', onMouseDown);
-    carousel.addEventListener('mouseleave', onMouseLeave);
-    carousel.addEventListener('mouseup', onMouseUp);
-    carousel.addEventListener('mousemove', onMouseMove);
-
-    return () => {
-      carousel.removeEventListener('mousedown', onMouseDown);
-      carousel.removeEventListener('mouseleave', onMouseLeave);
-      carousel.removeEventListener('mouseup', onMouseUp);
-      carousel.removeEventListener('mousemove', onMouseMove);
-
-      if (momentumID !== null) cancelAnimationFrame(momentumID);
-    };
-  }, [favorites]);
-
   if (loading) return <div className="loading">Loading...</div>;
   if (error || !userData) return <div className="error">Error: {error || 'User not found'}</div>;
 
-  const stats = userData.statistics?.anime;
+  const stats = userData.statistics;
+
+  const favoritesAnime = userData?.favourites?.anime?.nodes?.filter(a => a.title.english) ?? [];
+  const favoritesManga = userData?.favourites?.manga?.nodes?.filter(m => m.title.english) ?? [];
+
+  const percentiles = [
+    getAnimeWatchPercentile(stats?.anime.count),
+    getMangaReadPercentile(stats?.manga.count),
+  ].filter(Boolean);
+
+  const handleGenerateImage = () => {
+    if (!statsRef.current) return;
+
+    document.fonts.ready.then(() => {
+      toPng(statsRef.current!, { cacheBust: true })
+        .then((dataUrl) => {
+          saveAs(dataUrl, `${userData?.name}_stats.png`);
+        })
+        .catch((err) => {
+          console.error('Failed to generate image', err);
+        });
+    });
+  };
 
   return (
     <div className="user-stats-page">
-      <header className="user-header">
-        <img src={userData.avatar.large} alt={userData.name} className="avatar" />
-        <div className="username-wrapper">
-          <h1 className="username">{userData.name}</h1>
-          <span className="user-percentile">
-            {getAnimeWatchPercentile(stats?.count ?? 0)}
-          </span>
-        </div>
-      </header>
-
-      <section className="stats-cards">
-        <div className="stat-card">
-          <p>Total Anime Watched</p>
-          <strong>{stats?.count ?? 0}</strong>
-        </div>
-        <div className="stat-card">
-          <p>Episodes Watched</p>
-          <strong>{stats?.episodesWatched ?? 0}</strong>
-        </div>
-        <div className="stat-card">
-          <p>Minutes Watched</p>
-          <strong>{stats?.minutesWatched ?? 0}</strong>
-        </div>
-        <div className="stat-card">
-          <p>Mean Score</p>
-          <strong>{stats?.meanScore ?? 0}</strong>
-        </div>
-      </section>
-
-      <section className="favorites-carousel">
-        <h2>Favorite Anime</h2>
-        <div className="carousel-container">
-          {favorites.map((anime, i) => (
-            <div
-              key={i}
-              className="carousel-card"
-              onMouseMove={(e) => {
-                const card = e.currentTarget;
-                const rect = card.getBoundingClientRect();
-                const x = e.clientX - rect.left - rect.width / 2;
-                const y = e.clientY - rect.top - rect.height / 2;
-                const tiltX = (y / rect.height) * 18;
-                const tiltY = (-x / rect.width) * 18;
-                card.style.transform = `perspective(600px) rotateX(${tiltX}deg) rotateY(${tiltY}deg) scale(1)`;
-              }}
-              onMouseLeave={(e) => {
-                const card = e.currentTarget;
-                card.style.transform = 'perspective(600px) rotateX(0deg) rotateY(0deg) scale(1)';
-              }}
-            >
-              <img
-                src={anime.coverImage.extraLarge}
-                alt={anime.title.english || 'Anime'}
-                className="anime-img"
-              />
-              <div className="title-wrapper">
-                <div
-                  className="scrolling-title"
-                  data-text={anime.title.english || 'Untitled'}
-                  ref={(el) => {
-                    if (!el) return;
-                    const wrapper = el.parentElement;
-                    if (
-                      wrapper &&
-                      el.scrollWidth > wrapper.clientWidth &&
-                      !el.classList.contains('scrollable')
-                    ) {
-                      el.classList.add('scrollable');
-                    }
-                  }}
-                >
-                  {anime.title.english || 'Untitled'}
-                </div>
-              </div>
+      <div className="generate-button-wrapper">
+        <button className="generate-button" onClick={handleGenerateImage}>
+          Generate PNG
+        </button>
+      </div>
+      <div className="generated-container" ref={statsRef}>
+        <header className="user-header">
+          <img src={userData.avatar.large} alt={userData.name} className="avatar" />
+          <div className="username-wrapper">
+            <h1 className="username">{userData.name}</h1>
+            <div className="percentile-wrapper">
+              {percentiles.map((percentile, index) => (
+                <span key={index} className="user-percentile">
+                  {percentile}
+                </span>
+              ))}
             </div>
-          ))}
+          </div>
+        </header>
+
+        <div className={`tab-content-wrapper ${slideDirection}`}>
+          <div className={`tab-content ${activeTab === 'anime' ? 'show' : 'hide'}`} key="anime">
+            {activeTab === 'anime' && (
+              <>
+                <section className="stats-cards">
+                  <div className="stat-card">
+                    <p>Total Anime Watched</p>
+                    <strong>{stats?.anime.count ?? 0}</strong>
+                  </div>
+                  <div className="stat-card">
+                    <p>Episodes Watched</p>
+                    <strong>{stats?.anime.episodesWatched ?? 0}</strong>
+                  </div>
+                  <div className="stat-card">
+                    <p>Minutes Watched</p>
+                    <strong>{stats?.anime.minutesWatched ?? 0}</strong>
+                  </div>
+                  <div className="stat-card">
+                    <p>Mean Score</p>
+                    <strong>{stats?.anime.meanScore ?? 0}</strong>
+                  </div>
+                </section>
+
+                <FavoritesCarousel
+                  title="Favorite Anime"
+                  items={favoritesAnime}
+                  uniqueClass="anime-carousel"
+                />
+              </>
+            )}
+          </div>
+
+          <div className={`tab-content ${activeTab === 'manga' ? 'show' : 'hide'}`} key="manga">
+            {activeTab === 'manga' && (
+              <>
+                <section className="stats-cards">
+                  <div className="stat-card">
+                    <p>Total Manga Read</p>
+                    <strong>{stats?.manga.count ?? 0}</strong>
+                  </div>
+                  <div className="stat-card">
+                    <p>Chapters Read</p>
+                    <strong>{stats?.manga.chaptersRead ?? 0}</strong>
+                  </div>
+                  <div className="stat-card">
+                    <p>Volumes Read</p>
+                    <strong>{stats?.manga.volumesRead ?? 0}</strong>
+                  </div>
+                  <div className="stat-card">
+                    <p>Mean Score</p>
+                    <strong>{stats?.manga.meanScore ?? 0}</strong>
+                  </div>
+                </section>
+
+                <FavoritesCarousel
+                  title="Favorite Manga"
+                  items={favoritesManga}
+                  uniqueClass="manga-carousel"
+                />
+              </>
+            )}
+          </div>
         </div>
-      </section>
+        
+        <div className="floating-tabs">
+          <div className="tab-buttons">
+            <button
+              className={activeTab === 'anime' ? 'active' : ''}
+              onClick={() => handleTabChange('anime')}
+            >
+              Anime
+            </button>
+            <button
+              className={activeTab === 'manga' ? 'active' : ''}
+              onClick={() => handleTabChange('manga')}
+            >
+              Manga
+            </button>
+          </div>
+          <div
+            className="tab-indicator"
+            style={{ transform: `translateX(${activeTab === 'anime' ? '0%' : '100%'})` }}
+          />
+        </div>
+      </div>
     </div>
   );
 };

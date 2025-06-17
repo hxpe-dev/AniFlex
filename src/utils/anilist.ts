@@ -18,9 +18,29 @@ export const fetchAniListUser = async (username: string) => {
               count
             }
           }
+          manga {
+            count
+            meanScore
+            chaptersRead
+            volumesRead
+            genres {
+              genre
+              count
+            }
+          }
         }
         favourites {
           anime {
+            nodes {
+              title {
+                english
+              }
+              coverImage {
+                extraLarge
+              }
+            }
+          }
+          manga {
             nodes {
               title {
                 english

@@ -1,109 +1,111 @@
+/* --------------- MONTSERRAT --------------- */
 @font-face {
 	font-family: 'Montserrat';
-	src: url('./fonts/montserrat/Montserrat-Thin.ttf');
+	src: url('/fonts/montserrat/Montserrat-Thin.ttf');
 	font-weight: 100;
 	font-style: normal;
 }
 @font-face {
 	font-family: 'Montserrat';
-	src: url('./fonts/montserrat/Montserrat-ExtraLight.ttf');
+	src: url('/fonts/montserrat/Montserrat-ExtraLight.ttf');
 	font-weight: 200;
 	font-style: normal;
 }
 @font-face {
 	font-family: 'Montserrat';
-	src: url('./fonts/montserrat/Montserrat-Light.ttf');
+	src: url('/fonts/montserrat/Montserrat-Light.ttf');
 	font-weight: 300;
 	font-style: normal;
 }
 @font-face {
 	font-family: 'Montserrat';
-	src: url('./fonts/montserrat/Montserrat-Regular.ttf');
+	src: url('/fonts/montserrat/Montserrat-Regular.ttf');
 	font-weight: 400;
 	font-style: normal;
 }
 @font-face {
 	font-family: 'Montserrat';
-	src: url('./fonts/montserrat/Montserrat-Medium.ttf');
+	src: url('/fonts/montserrat/Montserrat-Medium.ttf');
 	font-weight: 500;
 	font-style: normal;
 }
 @font-face {
 	font-family: 'Montserrat';
-	src: url('./fonts/montserrat/Montserrat-SemiBold.ttf');
+	src: url('/fonts/montserrat/Montserrat-SemiBold.ttf');
 	font-weight: 600;
 	font-style: normal;
 }
 @font-face {
 	font-family: 'Montserrat';
-	src: url('./fonts/montserrat/Montserrat-Bold.ttf');
+	src: url('/fonts/montserrat/Montserrat-Bold.ttf');
 	font-weight: 700;
 	font-style: normal;
 }
 @font-face {
 	font-family: 'Montserrat';
-	src: url('./fonts/montserrat/Montserrat-ExtraBold.ttf');
+	src: url('/fonts/montserrat/Montserrat-ExtraBold.ttf');
 	font-weight: 800;
 	font-style: normal;
 }
 @font-face {
 	font-family: 'Montserrat';
-	src: url('./fonts/montserrat/Montserrat-Black.ttf');
+	src: url('/fonts/montserrat/Montserrat-Black.ttf');
 	font-weight: 900;
 	font-style: normal;
 }
 
+/* --------------- GEIST --------------- */
 @font-face {
 	font-family: 'Geist';
-	src: url('./fonts/geist/Geist-Thin.ttf');
+	src: url('/fonts/geist/Geist-Thin.ttf');
 	font-weight: 100;
 	font-style: normal;
 }
 @font-face {
 	font-family: 'Geist';
-	src: url('./fonts/geist/Geist-ExtraLight.ttf');
+	src: url('/fonts/geist/Geist-ExtraLight.ttf');
 	font-weight: 200;
 	font-style: normal;
 }
 @font-face {
 	font-family: 'Geist';
-	src: url('./fonts/geist/Geist-Light.ttf');
+	src: url('/fonts/geist/Geist-Light.ttf');
 	font-weight: 300;
 	font-style: normal;
 }
 @font-face {
 	font-family: 'Geist';
-	src: url('./fonts/geist/Geist-Regular.ttf');
+	src: url('/fonts/geist/Geist-Regular.ttf');
 	font-weight: 400;
 	font-style: normal;
 }
 @font-face {
 	font-family: 'Geist';
-	src: url('./fonts/geist/Geist-Medium.ttf');
+	src: url('/fonts/geist/Geist-Medium.ttf');
 	font-weight: 500;
 	font-style: normal;
 }
 @font-face {
 	font-family: 'Geist';
-	src: url('./fonts/geist/Geist-SemiBold.ttf');
+	src: url('/fonts/geist/Geist-SemiBold.ttf');
 	font-weight: 600;
 	font-style: normal;
 }
 @font-face {
 	font-family: 'Geist';
-	src: url('./fonts/geist/Geist-Bold.ttf');
+	src: url('/fonts/geist/Geist-Bold.ttf');
 	font-weight: 700;
 	font-style: normal;
 }
 @font-face {
 	font-family: 'Geist';
-	src: url('./fonts/geist/Geist-ExtraBold.ttf');
+	src: url('/fonts/geist/Geist-ExtraBold.ttf');
 	font-weight: 800;
 	font-style: normal;
 }
 @font-face {
 	font-family: 'Geist';
-	src: url('./fonts/geist/Geist-Black.ttf');
+	src: url('/fonts/geist/Geist-Black.ttf');
 	font-weight: 900;
 	font-style: normal;
 }
