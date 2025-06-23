@@ -12,10 +12,8 @@ It's like your AniList profile hit the gym and leveled up with React + ✨style�
 ## 🎯 What It Does
 
 🧠 **Pulls your AniList profile**  
-🎥 **Showcases your favorite anime with style**  
-🎢 **Scrolls titles only when they’re too long** (no dumb scrolling when it fits)  
-🌀 **Hover = smooth tilt animation**  
-🐭 **Drag to scroll the favorites like a carousel, momentum included**  
+🎥 **Showcases your favorite anime & manga with style**  
+📊 **Displays your stats so everyone knows you have no life (and you're proud of it)**
 💯 **Responsive and slick — looks good on desktop & mobile**
 
 ---
@@ -54,17 +52,6 @@ http://localhost:5173
 
 ---
 
-## ✨ Behind the Scenes
-- 🧬 **React** + **TypeScript** = snappy + safe
-- 🎨 Custom CSS + scroll animations
-- 🧠 Smart hover detection
-- ⚙️ AniList GraphQL API (no login needed)
-- 🎥 Overflow scroll only if needed (no useless movement)
-- 💃 Carousel drag with momentum physics
-- 🎭 Tilt hover on anime cards (because… why not?)
-
----
-
 ## 🛠️ Built For
 - Otakus who want to **show off their taste**
 - Creators making cool anime dashboards
@@ -80,4 +67,4 @@ http://localhost:5173
 ---
 
 ## 📄 License
-[MIT](LICENSE.md) — go wild.
+[MIT](LICENSE.md) — go wild, but **credit required**.

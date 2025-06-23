@@ -157,39 +157,30 @@
 }
 
 .tab-content-wrapper {
-  overflow: hidden;
+  position: relative;
 }
 
 .tab-content {
+  position: absolute;
   top: 0;
   left: 0;
   width: 100%;
+  transition: opacity 0.5s ease, transform 0.5s ease;
   opacity: 0;
-  transform: translateX(100%);
-  transition: transform 0.4s ease, opacity 0.4s ease;
+  transform: scale(0.97);
   pointer-events: none;
 }
 
-.tab-content-wrapper.left .tab-content.show {
-  transform: translateX(0%);
+.tab-content.show {
   opacity: 1;
+  transform: scale(1);
   pointer-events: auto;
 }
 
-.tab-content-wrapper.left .tab-content.hide {
-  transform: translateX(-100%);
+.tab-content.hide {
   opacity: 0;
-}
-
-.tab-content-wrapper.right .tab-content.show {
-  transform: translateX(0%);
-  opacity: 1;
-  pointer-events: auto;
-}
-
-.tab-content-wrapper.right .tab-content.hide {
-  transform: translateX(100%);
-  opacity: 0;
+  transform: scale(0.97);
+  pointer-events: none;
 }
 
 .generate-button-wrapper {

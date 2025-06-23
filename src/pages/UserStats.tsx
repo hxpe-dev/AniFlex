@@ -7,7 +7,7 @@ import FavoritesCarousel from '../components/FavoritesCarousel';
 import { toPng } from 'html-to-image';
 import { saveAs } from 'file-saver';
 import type { AniListUser, ListActivity } from '../utils/types';
-
+import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 
 
 const UserStats: React.FC = () => {
@@ -19,12 +19,11 @@ const UserStats: React.FC = () => {
   const statsRef = useRef<HTMLDivElement>(null);
 
   const [activeTab, setActiveTab] = useState<'anime' | 'manga' | 'stats'>('anime');
-  const [slideDirection, setSlideDirection] = useState<'left' | 'right'>('right');
 
   const handleTabChange = (tab: 'anime' | 'manga' | 'stats') => {
-    if (tab === activeTab) return;
-    setSlideDirection(tab === 'anime' ? 'left' : tab === 'manga' && activeTab === 'stats' ? 'left' : 'right');
-    setActiveTab(tab);
+    if (tab !== activeTab) {
+      setActiveTab(tab);
+    }
   };
 
   useEffect(() => {
@@ -142,6 +141,39 @@ const UserStats: React.FC = () => {
     mangaCount: stats.manga.count
   };
 
+  const getWeeklyStats = (weekOffset: number) => {
+    const now = Math.floor(Date.now() / 1000);
+    const weekInSeconds = 7 * 24 * 60 * 60;
+    const start = now - weekInSeconds * (weekOffset + 1);
+    const end = now - weekInSeconds * weekOffset;
+
+    const filtered = activities.filter(a => a.createdAt >= start && a.createdAt < end && a.status !== 'PLANNING');
+
+    let animeEpisodes = 0;
+    let mangaChapters = 0;
+
+    filtered.forEach(activity => {
+      const progressCount = parseProgress(activity.progress);
+
+      if (activity.media.type === 'ANIME') {
+        animeEpisodes += progressCount;
+      } else if (activity.media.type === 'MANGA') {
+        mangaChapters += progressCount;
+      }
+    });
+
+    return { animeEpisodes, mangaChapters };
+  };
+
+  const weekData = [
+    { name: '5 Weeks Ago', ...getWeeklyStats(5) },
+    { name: '4 Weeks Ago', ...getWeeklyStats(4) },
+    { name: '3 Weeks Ago', ...getWeeklyStats(3) },
+    { name: '2 Weeks Ago', ...getWeeklyStats(2) },
+    { name: 'Last Week', ...getWeeklyStats(1) },
+    { name: 'This Week', ...getWeeklyStats(0) },
+  ];
+
   return (
     <div className="user-stats-page">
       <div className="generate-button-wrapper">
@@ -164,7 +196,7 @@ const UserStats: React.FC = () => {
           </div>
         </header>
 
-        <div className={`tab-content-wrapper ${slideDirection}`}>
+        <div className="tab-content-wrapper">
           <div className={`tab-content ${activeTab === 'anime' ? 'show' : 'hide'}`} key="anime">
             {activeTab === 'anime' && (
               <>
@@ -280,6 +312,20 @@ const UserStats: React.FC = () => {
                     <strong>{allTimeStats.mangaCount}</strong>
                   </div>
                 </section>
+                <a className="stats-title">Activity Graph</a>
+                <div style={{ width: '100%', height: 200 }}>
+                  <ResponsiveContainer>
+                    <LineChart data={weekData} margin={{ top: 20, right: 30, left: 0, bottom: 0 }}>
+                      <CartesianGrid strokeDasharray="3 3" />
+                      <XAxis dataKey="name" />
+                      <YAxis allowDecimals={false} />
+                      <Tooltip />
+                      <Legend />
+                      <Line type="monotone" dataKey="animeEpisodes" stroke="#8884d8" name="Anime Episodes" strokeWidth={2} />
+                      <Line type="monotone" dataKey="mangaChapters" stroke="#82ca9d" name="Manga Chapters" strokeWidth={2} />
+                    </LineChart>
+                  </ResponsiveContainer>
+                </div>
               </>
             )}
           </div>
