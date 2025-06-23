@@ -10,6 +10,7 @@
 }
 
 .generated-container {
+  position: relative;
   background-color: var(--bg-color);
   padding: 1rem;
 }
@@ -96,12 +97,21 @@
   color: var(--text-color);
 }
 
+.stats-title {
+  display: flex;
+  left: 0;
+  color: var(--text-color);
+  font-size: 1.3rem;
+  font-weight: 500;
+}
+
 .floating-tabs {
-  position: relative;
+  position: fixed;
+  bottom: 10px;
+  left: 50%;
+  transform: translate(-50%, -50%);
   display: flex;
   justify-content: center;
-  margin: 24px auto;
-  width: fit-content;
   background: var(--card-bg);
   border-radius: 9999px;
   padding: 6px;
@@ -126,6 +136,7 @@
   cursor: pointer;
   color: var(--secondary-text-color);
   transition: color 0.2s ease;
+  width: 33.33% - 3px;
 }
 
 .tab-buttons button.active {
@@ -137,7 +148,7 @@
   top: 6px;
   bottom: 6px;
   left: 6px;
-  width: calc(50% - 6px);
+  width: calc(33.33% - 3px); /* Now 3 tabs */
   background-color: var(--surface-bg);
   border-radius: 9999px;
   z-index: 0;
