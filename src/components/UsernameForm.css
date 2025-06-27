@@ -1,0 +1,52 @@
+.username-form {
+  display: flex;
+  justify-content: center;
+}
+
+.search-wrapper {
+  display: flex;
+  align-items: center;
+  background-color: var(--card-bg);
+  border-radius: 30px;
+  padding: 0.5rem 1rem;
+  width: fit-content;
+  transition: all 0.3s ease;
+}
+
+
+/* Shadow on hover */
+.search-wrapper:hover {
+  box-shadow: 0 0 1em var(--shadow);
+  background-color: transparent;
+}
+
+.search-wrapper:has(.search-input:focus) {
+  box-shadow: 0 0 1em var(--shadow);
+  background-color: transparent;
+}
+
+.search-input {
+  font-family: 'Montserrat';
+  font-size: 16px;
+  background: transparent;
+  border: none;
+  color: var(--secondary-text-color);
+  outline: none;
+  width: 13em;
+}
+
+.search-button {
+  border: none;
+  background: transparent;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.search-icon {
+  height: 1.3em;
+  width: 1.3em;
+  fill: var(--secondary-text-color);
+}

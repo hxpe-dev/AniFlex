@@ -1,7 +1,10 @@
-.theme-selector {
+.top-right-container {
   position: fixed;
+  display: flex;
+  gap: 10px;
+  flex-direction: row;
   top: 16px;
-  right: 20px;
+  right: 16px;
   z-index: 1000;
   font-size: 14px;
 }

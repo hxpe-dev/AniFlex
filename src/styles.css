@@ -28,24 +28,3 @@ body {
   color: var(--text-color);
   margin-bottom: 2rem;
 }
-
-.username-form input {
-  padding: 0.5rem;
-  font-size: 1rem;
-  width: 250px;
-  margin-right: 1rem;
-}
-
-.username-form button {
-  padding: 0.5rem 1rem;
-  font-size: 1rem;
-  cursor: pointer;
-  background-color: var(--accent-color);
-  color: var(--text-color);
-  border: none;
-  border-radius: 4px;
-}
-
-.username-form button:hover {
-  background-color: var(--accent-color);
-}

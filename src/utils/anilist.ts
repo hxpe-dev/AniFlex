@@ -36,20 +36,24 @@ export const fetchAniListUser = async (username: string) => {
             nodes {
               title {
                 english
+                romaji
               }
               coverImage {
                 extraLarge
               }
+              siteUrl
             }
           }
           manga {
             nodes {
               title {
                 english
+                romaji
               }
               coverImage {
                 extraLarge
               }
+              siteUrl
             }
           }
         }

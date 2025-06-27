@@ -60,8 +60,20 @@ const UserStats: React.FC = () => {
 
   const stats = userData.statistics;
 
-  const favoritesAnime = userData?.favourites?.anime?.nodes?.filter(a => a.title.english) ?? [];
-  const favoritesManga = userData?.favourites?.manga?.nodes?.filter(m => m.title.english) ?? [];
+  const favoritesAnime = userData.favourites.anime.nodes?.filter(
+    a => a.title.english || a.title.romaji
+  ) ?? [];
+
+  const favoritesManga = userData.favourites.manga.nodes?.filter(
+    m => m.title.english || m.title.romaji
+  ) ?? [];
+  const topAnimeGenres = [...userData.statistics.anime.genres]
+    .sort((a, b) => b.count - a.count)
+    .slice(0, 5);
+
+  const topMangaGenres = [...userData.statistics.manga.genres]
+    .sort((a, b) => b.count - a.count)
+    .slice(0, 5);
 
   const percentiles = [
     getAnimeWatchPercentile(stats?.anime.count),
@@ -96,10 +108,18 @@ const UserStats: React.FC = () => {
       const progressCount = parseProgress(activity.progress);
 
       if (activity.media.type === 'ANIME') {
-        animeEpisodes += progressCount;
+        if (activity.status == "completed") {
+          animeEpisodes += 1;
+        } else {
+          animeEpisodes += progressCount;
+        }
         animeIds.add(activity.media.id); // track unique anime series
       } else if (activity.media.type === 'MANGA') {
-        mangaChapters += progressCount;
+        if (activity.status == "completed") {
+          mangaChapters += 1;
+        } else {
+          mangaChapters += progressCount;
+        }
         mangaIds.add(activity.media.id); // track unique manga series
       }
     });
@@ -156,9 +176,17 @@ const UserStats: React.FC = () => {
       const progressCount = parseProgress(activity.progress);
 
       if (activity.media.type === 'ANIME') {
-        animeEpisodes += progressCount;
+        if (activity.status == "completed") {
+          animeEpisodes += 1;
+        } else {
+          animeEpisodes += progressCount;
+        }
       } else if (activity.media.type === 'MANGA') {
-        mangaChapters += progressCount;
+        if (activity.status == "completed") {
+          mangaChapters += 1;
+        } else {
+          mangaChapters += progressCount;
+        }
       }
     });
 
@@ -219,6 +247,14 @@ const UserStats: React.FC = () => {
                   </div>
                 </section>
 
+                <section className="genre-section">
+                  {topAnimeGenres.map((g, i) => (
+                    <div key={i} className='genre-card'>
+                      {g.genre} ({g.count})
+                    </div>
+                  ))}
+                </section>
+
                 <FavoritesCarousel
                   title="Favorite Anime"
                   items={favoritesAnime}
@@ -248,6 +284,14 @@ const UserStats: React.FC = () => {
                     <p>Mean Score</p>
                     <strong>{stats?.manga.meanScore ?? 0}</strong>
                   </div>
+                </section>
+
+                <section className="genre-section">
+                  {topMangaGenres.map((g, i) => (
+                    <div key={i} className='genre-card'>
+                      {g.genre} ({g.count})
+                    </div>
+                  ))}
                 </section>
 
                 <FavoritesCarousel

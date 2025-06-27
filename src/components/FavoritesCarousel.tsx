@@ -1,22 +1,8 @@
 import React, { useEffect } from 'react';
 import './FavoritesCarousel.css';
+import type { CarouselProps } from '../utils/types';
 
-type FavoriteItem = {
-  title: {
-    english: string | null;
-  };
-  coverImage: {
-    extraLarge: string;
-  };
-};
-
-type Props = {
-  title: string;
-  items: FavoriteItem[];
-  uniqueClass: string;
-};
-
-const FavoritesCarousel: React.FC<Props> = ({ title, items, uniqueClass }) => {
+const FavoritesCarousel: React.FC<CarouselProps> = ({ title, items, uniqueClass }) => {
   useEffect(() => {
     const carousel = document.querySelector<HTMLElement>(`.${uniqueClass}`);
     if (!carousel) return;
@@ -94,6 +80,8 @@ const FavoritesCarousel: React.FC<Props> = ({ title, items, uniqueClass }) => {
     };
   }, [items, uniqueClass]);
 
+  let wasDragged = false;
+
   return (
     <section className="favorites-carousel">
       <h2>{title}</h2>
@@ -102,7 +90,14 @@ const FavoritesCarousel: React.FC<Props> = ({ title, items, uniqueClass }) => {
           <div
             key={i}
             className="carousel-card"
+            onMouseDown={() => wasDragged = false}
+            onClick={() => {
+              if (!wasDragged) {
+                window.open(item.siteUrl, '_blank'); // Open in new tab
+              }
+            }}
             onMouseMove={(e) => {
+              wasDragged = true
               const card = e.currentTarget;
               const rect = card.getBoundingClientRect();
               const x = e.clientX - rect.left - rect.width / 2;
@@ -118,13 +113,13 @@ const FavoritesCarousel: React.FC<Props> = ({ title, items, uniqueClass }) => {
           >
             <img
               src={item.coverImage.extraLarge}
-              alt={item.title.english || 'Untitled'}
+              alt={item.title.english || item.title.romaji || 'Untitled'}
               className="anime-img"
             />
             <div className="title-wrapper">
               <div
                 className="scrolling-title"
-                data-text={item.title.english || 'Untitled'}
+                data-text={item.title.english || item.title.romaji || 'Untitled'}
                 ref={(el) => {
                   if (!el) return;
                   const wrapper = el.parentElement;
@@ -137,7 +132,7 @@ const FavoritesCarousel: React.FC<Props> = ({ title, items, uniqueClass }) => {
                   }
                 }}
               >
-                {item.title.english || 'Untitled'}
+                {item.title.english || item.title.romaji || 'Untitled'}
               </div>
             </div>
           </div>

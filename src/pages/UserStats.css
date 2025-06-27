@@ -69,9 +69,7 @@
   grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
   width: 100%;
   gap: 1rem;
-  margin-bottom: 2rem;
   padding: 1rem 0;
-  /* background-color: red; */
 }
 
 .stat-card {
@@ -103,6 +101,30 @@
   color: var(--text-color);
   font-size: 1.3rem;
   font-weight: 500;
+  margin-top: 0.5rem;
+}
+
+.genre-section {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(50px, 1fr));
+  width: 100%;
+  gap: 1rem;
+  padding: 1rem 0;
+}
+
+.genre-card {
+  background: var(--surface-bg);
+  border-radius: 10px;
+  box-shadow: 0 3px 10px var(--shadow);
+  padding: 1rem;
+  text-align: center;
+  transition: transform 0.2s ease;
+  font-size: 1rem;
+  color: var(--text-color);
+}
+
+.genre-card:hover {
+  transform: translateY(-3px);
 }
 
 .floating-tabs {
@@ -136,7 +158,8 @@
   cursor: pointer;
   color: var(--secondary-text-color);
   transition: color 0.2s ease;
-  width: 33.33% - 3px;
+  width: 100px;
+  font-family: "Montserrat";
 }
 
 .tab-buttons button.active {
@@ -148,7 +171,7 @@
   top: 6px;
   bottom: 6px;
   left: 6px;
-  width: calc(33.33% - 3px); /* Now 3 tabs */
+  width: 100px;
   background-color: var(--surface-bg);
   border-radius: 9999px;
   z-index: 0;
@@ -231,13 +254,6 @@
     padding: 8px 16px;
     font-size: 14px;
   }
-
-  .tab-indicator {
-    width: 50%;
-    left: 0;
-    top: 4px;
-    bottom: 4px;
-  }
 }
 
 /* For phones */
@@ -261,17 +277,7 @@
     padding: 6px 12px;
   }
 
-  .tab-buttons {
-    width: 100%;
-    justify-content: space-between;
-  }
-
   .tab-buttons button {
-    width: 50%;
     font-size: 13px;
-  }
-
-  .tab-indicator {
-    width: 50%;
   }
 }

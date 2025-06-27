@@ -16,19 +16,40 @@ export type GenreStat = {
 export type FavoriteAnime = {
   title: {
     english: string | null;
+    romaji: string | null;
   };
   coverImage: {
     extraLarge: string;
   };
+  siteUrl: string;
 };
 
 export type FavoriteManga = {
   title: {
     english: string | null;
+    romaji: string | null;
   };
   coverImage: {
     extraLarge: string;
   };
+  siteUrl: string;
+};
+
+export type FavoriteItem = {
+  title: {
+    english: string | null;
+    romaji: string | null;
+  };
+  coverImage: {
+    extraLarge: string;
+  };
+  siteUrl: string;
+};
+
+export type CarouselProps = {
+  title: string;
+  items: FavoriteItem[];
+  uniqueClass: string;
 };
 
 export type AniListUser = {
