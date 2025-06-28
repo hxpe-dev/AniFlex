@@ -12,19 +12,3 @@ body {
   width: 100vw;
   text-align: center;
 }
-
-.container {
-  padding: 2rem;
-}
-
-.title {
-  font-size: 3rem;
-  color: var(--accent-color);
-  margin-bottom: 0.5rem;
-}
-
-.subtitle {
-  font-size: 1.2rem;
-  color: var(--text-color);
-  margin-bottom: 2rem;
-}

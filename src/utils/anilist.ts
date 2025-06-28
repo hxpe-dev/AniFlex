@@ -38,9 +38,12 @@ export const fetchAniListUser = async (username: string) => {
                 english
                 romaji
               }
+              description
+              genres
               coverImage {
                 extraLarge
               }
+              bannerImage
               siteUrl
             }
           }
@@ -50,9 +53,12 @@ export const fetchAniListUser = async (username: string) => {
                 english
                 romaji
               }
+              description
+              genres
               coverImage {
                 extraLarge
               }
+              bannerImage
               siteUrl
             }
           }

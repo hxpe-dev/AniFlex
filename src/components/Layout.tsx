@@ -14,7 +14,10 @@ const Layout: React.FC = () => {
 
   return (
     <>
-      <Link to="/" className="aniflex-button">AniFlex</Link>
+      <Link to="/" className="aniflex-button">
+        <img src='/logo-nobg.svg' className='aniflex-logo' />
+        AniFlex
+      </Link>
       <div className='top-right-container'>
         <div className="theme-selector">
           <label htmlFor="theme-select">Theme:</label>

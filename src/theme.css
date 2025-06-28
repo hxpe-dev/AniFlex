@@ -8,6 +8,8 @@
   --accent-text-color: #ffffff;
   --highlight: #0077ff;
   --shadow: rgba(0, 0, 0, 0.1);
+  --medium-shadow: rgba(0, 0, 0, 0.3);
+  --deep-shadow: rgba(0, 0, 0, 0.65);
 }
 
 /* Dark Theme */
@@ -19,7 +21,9 @@
   --accent-color: #0077ff;
   --accent-text-color: #ffffff;
   --highlight: #7289da;
-  --shadow: rgba(0, 0, 0, 0.5);
+  --shadow: rgba(0, 0, 0, 0.1);
+  --medium-shadow: rgba(0, 0, 0, 0.4);
+  --deep-shadow: rgba(0, 0, 0, 0.8);
 }
 
 /* Neon Theme */
@@ -32,4 +36,6 @@
   --accent-text-color: #ffffff;
   --highlight: #0ff;
   --shadow: rgba(0, 255, 255, 0.3);
+  --medium-shadow: rgba(0, 255, 255, 0.3);
+  --deep-shadow: rgba(0, 255, 255, 0.3);
 }

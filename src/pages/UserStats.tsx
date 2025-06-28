@@ -8,6 +8,7 @@ import { toPng } from 'html-to-image';
 import { saveAs } from 'file-saver';
 import type { AniListUser, ListActivity } from '../utils/types';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
+import LoadingScreen from '../components/LoadingScreen';
 
 
 const UserStats: React.FC = () => {
@@ -26,6 +27,8 @@ const UserStats: React.FC = () => {
     }
   };
 
+  const wait = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
+
   useEffect(() => {
     const fetchData = async () => {
       if (!username) return;
@@ -33,11 +36,13 @@ const UserStats: React.FC = () => {
       try {
         const user = await fetchAniListUser(username);
         setUserData(user);
+        await wait(1000);
 
-        const [animeActivities, mangaActivities] = await Promise.all([
-          fetchAniListUserAnimeActivities(user.id),
-          fetchAniListUserMangaActivities(user.id)
-        ]);
+        const animeActivities = await fetchAniListUserAnimeActivities(user.id);
+        await wait(1000);
+
+        const mangaActivities = await fetchAniListUserMangaActivities(user.id);
+        await wait(1000);
 
         // Combine both activity arrays
         const combinedActivities = [...animeActivities, ...mangaActivities];
@@ -55,7 +60,7 @@ const UserStats: React.FC = () => {
     fetchData();
   }, [username]);
 
-  if (loading) return <div className="loading">Loading...</div>;
+  if (loading) return <LoadingScreen />;
   if (error || !userData) return <div className="error">Error: {error || 'User not found'}</div>;
 
   const stats = userData.statistics;
@@ -204,11 +209,6 @@ const UserStats: React.FC = () => {
 
   return (
     <div className="user-stats-page">
-      <div className="generate-button-wrapper">
-        <button className="generate-button" onClick={handleGenerateImage}>
-          Generate PNG
-        </button>
-      </div>
       <div className="generated-container" ref={statsRef}>
         <header className="user-header">
           <img src={userData.avatar.large} alt={userData.name} className="avatar" />
@@ -374,6 +374,11 @@ const UserStats: React.FC = () => {
             )}
           </div>
         </div>
+      </div>
+      <div className="generate-button-wrapper">
+        <button className="generate-button" onClick={handleGenerateImage}>
+          Generate PNG
+        </button>
       </div>
       <div className="floating-tabs">
         <div className="tab-buttons">

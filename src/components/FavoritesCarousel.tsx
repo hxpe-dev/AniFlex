@@ -1,8 +1,12 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState  } from 'react';
 import './FavoritesCarousel.css';
-import type { CarouselProps } from '../utils/types';
+import type { CarouselProps, FavoriteItem } from '../utils/types';
+import FavoriteModal from './FavoriteModal';
 
 const FavoritesCarousel: React.FC<CarouselProps> = ({ title, items, uniqueClass }) => {
+
+  const [selectedItem, setSelectedItem] = useState<FavoriteItem | null>(null);
+
   useEffect(() => {
     const carousel = document.querySelector<HTMLElement>(`.${uniqueClass}`);
     if (!carousel) return;
@@ -44,9 +48,9 @@ const FavoritesCarousel: React.FC<CarouselProps> = ({ title, items, uniqueClass 
     };
 
     const startMomentum = () => {
-      const decay = 0.993;
+      const decay = 0.9;
       const step = () => {
-        if (Math.abs(velocity) > 0.0001) {
+        if (Math.abs(velocity) > 0.001) {
           carousel.scrollLeft -= velocity;
           velocity *= decay;
           momentumID = requestAnimationFrame(step);
@@ -93,7 +97,7 @@ const FavoritesCarousel: React.FC<CarouselProps> = ({ title, items, uniqueClass 
             onMouseDown={() => wasDragged = false}
             onClick={() => {
               if (!wasDragged) {
-                window.open(item.siteUrl, '_blank'); // Open in new tab
+                setSelectedItem(item);
               }
             }}
             onMouseMove={(e) => {
@@ -138,6 +142,9 @@ const FavoritesCarousel: React.FC<CarouselProps> = ({ title, items, uniqueClass 
           </div>
         ))}
       </div>
+      {selectedItem && (
+        <FavoriteModal item={selectedItem} onClose={() => setSelectedItem(null)} />
+      )}
     </section>
   );
 };

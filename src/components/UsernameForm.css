@@ -1,3 +1,5 @@
+@import '../theme.css';
+
 .username-form {
   display: flex;
   justify-content: center;

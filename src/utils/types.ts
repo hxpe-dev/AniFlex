@@ -18,9 +18,12 @@ export type FavoriteAnime = {
     english: string | null;
     romaji: string | null;
   };
+  description: string;
+  genres: string[];
   coverImage: {
     extraLarge: string;
   };
+  bannerImage: string | null;
   siteUrl: string;
 };
 
@@ -29,9 +32,12 @@ export type FavoriteManga = {
     english: string | null;
     romaji: string | null;
   };
+  description: string;
+  genres: string[];
   coverImage: {
     extraLarge: string;
   };
+  bannerImage: string | null;
   siteUrl: string;
 };
 
@@ -40,9 +46,12 @@ export type FavoriteItem = {
     english: string | null;
     romaji: string | null;
   };
+  description: string;
+  genres: string[];
   coverImage: {
     extraLarge: string;
   };
+  bannerImage: string | null;
   siteUrl: string;
 };
 

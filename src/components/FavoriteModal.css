@@ -1,0 +1,167 @@
+@import '../theme.css';
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: var(--deep-shadow);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  opacity: 0;
+  animation: fadeIn 0.3s ease-out forwards;
+}
+
+.modal-content {
+  background: var(--surface-bg);
+  border-radius: 12px;
+  max-width: 500px;
+  padding-bottom: 16px;
+  text-align: center;
+  position: relative;
+  transform: scale(0.9);
+  opacity: 0;
+  animation: popIn 0.3s ease-out forwards;
+  animation-delay: 0.05s;
+}
+
+@keyframes fadeIn {
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes popIn {
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.close-button {
+  position: absolute;
+  right: 1rem;
+  top: 1rem;
+  font-size: 1.5rem;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+.modal-image-wrapper {
+  position: relative;
+  display: inline-block;
+  width: 100%;
+  max-height: 350px;
+  overflow: hidden;
+  border-top-left-radius: 12px;
+  border-top-right-radius: 12px;
+  border-bottom-left-radius: 8px;
+  border-bottom-right-radius: 8px;
+}
+
+.modal-img {
+  width: 100%;
+  height: 110px;
+  display: block;
+  object-fit: cover;
+}
+
+.modal-title-overlay {
+  font-family: 'Montserrat';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+  padding: 1rem;
+  text-align: center;
+  color: var(--accent-text-color);
+  font-size: 1.5rem;
+  font-weight: bold;
+  background: var(--medium-shadow); /* transparent dark overlay */
+  text-shadow: 0 2px 6px var(--deep-shadow);
+  border-radius: 8px;
+}
+
+.modal-description {
+  font-family: 'Montserrat';
+  position: relative;
+  overflow: hidden;
+  transition: max-height 0.3s ease-in-out;
+  margin-top: 1rem;
+  padding-left: 16px;
+  padding-right: 16px;
+  margin-bottom: 24px;
+}
+
+.modal-description:hover {
+  cursor: pointer;
+}
+
+.modal-description.collapsed::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 2em;
+  width: 100%;
+  background: linear-gradient(to bottom, rgba(255, 255, 255, 0), var(--surface-bg));
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+  opacity: 1;
+}
+
+.modal-description[style*="1000px"]::after,
+.modal-description[style*="em"]::after {
+  opacity: 1; /* still visible when collapsed */
+}
+
+.modal-description[style*="px"]:not([style*="4.5em"])::after {
+  opacity: 0; /* hide fade when expanded */
+}
+
+.expand-chevron {
+  display: flex;
+  position: absolute;
+  left: 50%;
+  bottom: 40px;
+  transform: translate(-50%, -50%);
+  align-items: center;
+  justify-content: center;
+  background: none;
+  border: none;
+  color: var(--text-color);
+  margin-top: 0.5rem;
+  cursor: pointer;
+}
+
+.modal-genres {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  justify-content: center;
+}
+
+.genre-chip {
+  background: #f3f3f3;
+  padding: 0.4rem 0.8rem;
+  border-radius: 999px;
+  font-size: 0.85rem;
+}
+
+.modal-link {
+  background-color: var(--accent-color);
+  color: var(--accent-text-color);
+  padding: 0.4rem 1rem;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: 600;
+}
