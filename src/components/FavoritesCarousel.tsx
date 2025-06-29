@@ -48,9 +48,9 @@ const FavoritesCarousel: React.FC<CarouselProps> = ({ title, items, uniqueClass 
     };
 
     const startMomentum = () => {
-      const decay = 0.9;
+      const decay = 0.99;
       const step = () => {
-        if (Math.abs(velocity) > 0.001) {
+        if (Math.abs(velocity) > 0.0008) {
           carousel.scrollLeft -= velocity;
           velocity *= decay;
           momentumID = requestAnimationFrame(step);
@@ -88,7 +88,9 @@ const FavoritesCarousel: React.FC<CarouselProps> = ({ title, items, uniqueClass 
 
   return (
     <section className="favorites-carousel">
-      <h2>{title}</h2>
+      <a className='carousel-title'>
+        {title}
+      </a>
       <div className={`carousel-container ${uniqueClass}`}>
         {items.map((item, i) => (
           <div

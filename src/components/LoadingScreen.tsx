@@ -9,26 +9,34 @@ const defaultFacts = [
   "Sailor Moon was originally going to be a space opera — with guns."
 ];
 
-const LoadingScreen: React.FC = () => {
+interface LoadingScreenProps {
+  message?: string;
+}
+
+const LoadingScreen: React.FC<LoadingScreenProps> = ({ message }) => {
   const [dotCount, setDotCount] = useState(1);
   const [fact, setFact] = useState('');
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setDotCount(prev => (prev % 3) + 1); // cycle 1 → 2 → 3 → 1
+      setDotCount(prev => (prev % 3) + 1);
     }, 500);
     return () => clearInterval(interval);
   }, []);
 
   useEffect(() => {
-    const randomIndex = Math.floor(Math.random() * defaultFacts.length);
-    setFact(defaultFacts[randomIndex]);
-  }, []);
+    if (!message) {
+      const randomIndex = Math.floor(Math.random() * defaultFacts.length);
+      setFact(defaultFacts[randomIndex]);
+    }
+  }, [message]);
 
   return (
     <div className="loading-screen">
-      <div className="loading-text">Loading{".".repeat(dotCount)}</div>
-      <div className="loading-fact">{fact}</div>
+      <div className="loading-text">
+        {message ? "Error :(" : `Loading${".".repeat(dotCount)}`}
+      </div>
+      <div className="loading-fact">{message || fact}</div>
     </div>
   );
 };

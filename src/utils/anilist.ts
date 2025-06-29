@@ -147,3 +147,21 @@ export const fetchAniListUserAnimeActivities = async (userId: string) => {
 export const fetchAniListUserMangaActivities = async (userId: string) => {
   return fetchAniListUserActivitiesPaginated(userId, 'MANGA_LIST');
 };
+
+export async function withTimeout<T>(promise: Promise<T>, timeoutMs: number): Promise<T | false> {
+  return new Promise((resolve) => {
+    const timeoutId = setTimeout(() => {
+      resolve(false); // Return false on timeout
+    }, timeoutMs);
+
+    promise
+      .then(result => {
+        clearTimeout(timeoutId);
+        resolve(result);
+      })
+      .catch(() => {
+        clearTimeout(timeoutId);
+        resolve(false); // Return false on error
+      });
+  });
+}

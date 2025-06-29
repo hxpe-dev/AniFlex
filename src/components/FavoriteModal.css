@@ -96,7 +96,6 @@
   position: relative;
   overflow: hidden;
   transition: max-height 0.3s ease-in-out;
-  margin-top: 1rem;
   padding-left: 16px;
   padding-right: 16px;
   margin-bottom: 24px;
@@ -141,6 +140,11 @@
   color: var(--text-color);
   margin-top: 0.5rem;
   cursor: pointer;
+  transition: bottom 0.3s ease;
+}
+
+.expand-chevron.with-margin {
+  bottom: 32px;
 }
 
 .modal-genres {
@@ -148,10 +152,12 @@
   flex-wrap: wrap;
   gap: 0.5rem;
   justify-content: center;
+  margin-top: 8px;
+  margin-bottom: 12px;
 }
 
 .genre-chip {
-  background: #f3f3f3;
+  background: var(--card-bg);
   padding: 0.4rem 0.8rem;
   border-radius: 999px;
   font-size: 0.85rem;

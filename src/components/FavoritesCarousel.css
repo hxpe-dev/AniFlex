@@ -4,6 +4,16 @@
   margin-top: 3rem;
 }
 
+.carousel-title {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-color);
+  font-size: 1.4rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
 .carousel-container {
   touch-action: pan-y;
   display: flex;

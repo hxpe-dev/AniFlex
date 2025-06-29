@@ -10,6 +10,11 @@
   -ms-user-select: none;     /* IE10+/Edge */
   user-select: none;
   background-color: var(--bg-color);
+  -ms-overflow-style: none;  /* Internet Explorer 10+ */
+  scrollbar-width: none; /* Firefox, Safari 18.2+, Chromium 121+ */
+}
+.user-stats-page::-webkit-scrollbar {
+  display: none;
 }
 
 .generated-container {  /* contains the generated png */
@@ -124,6 +129,7 @@
   transition: transform 0.2s ease;
   font-size: 1rem;
   color: var(--text-color);
+  overflow: hidden;
 }
 
 .genre-card:hover {

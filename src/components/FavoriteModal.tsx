@@ -2,7 +2,7 @@ import ReactDOM from 'react-dom';
 import React, { useState, useEffect, useRef } from 'react';
 import type { FavoriteItem } from '../utils/types';
 import './FavoriteModal.css';
-import { ChevronDown } from 'lucide-react';
+import { ChevronDown, ChevronUp } from 'lucide-react';
 
 interface FavoriteModalProps {
   item: FavoriteItem | null;
@@ -56,10 +56,10 @@ const FavoriteModal: React.FC<FavoriteModalProps> = ({ item, onClose }) => {
         </div>
         {item.description.length > 0 && (
           <button
-            className="expand-chevron"
+            className={`expand-chevron ${isExpanded ? 'with-margin' : ''}`}
             onClick={() => setIsExpanded((prev) => !prev)}
           >
-            {isExpanded ? <></> : <ChevronDown size={18} />}
+            {isExpanded ? <ChevronUp size={18} /> : <ChevronDown size={18} />}
           </button>
         )}
         <a href={item.siteUrl} target="_blank" rel="noopener noreferrer" className="modal-link">

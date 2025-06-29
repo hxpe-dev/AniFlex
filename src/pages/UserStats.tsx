@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { useParams } from 'react-router-dom';
-import { fetchAniListUser, fetchAniListUserAnimeActivities, fetchAniListUserMangaActivities } from '../utils/anilist';
+import { fetchAniListUser, fetchAniListUserAnimeActivities, fetchAniListUserMangaActivities, withTimeout } from '../utils/anilist';
 import './UserStats.css';
 import { getAnimeWatchPercentile, getMangaReadPercentile } from '../utils/badges';
 import FavoritesCarousel from '../components/FavoritesCarousel';
@@ -34,14 +34,29 @@ const UserStats: React.FC = () => {
       if (!username) return;
 
       try {
-        const user = await fetchAniListUser(username);
+        const user = await withTimeout(fetchAniListUser(username), 5000);
+        if (!user) {
+          setError('Failed to fetch user data. Ensure that the profile exists and is public.');
+          setLoading(false);
+          return;
+        }
         setUserData(user);
         await wait(1000);
 
-        const animeActivities = await fetchAniListUserAnimeActivities(user.id);
+        const animeActivities = await withTimeout(fetchAniListUserAnimeActivities(user.id), 5000);
+        if (!animeActivities) {
+          setError('Failed to fetch anime activities.');
+          setLoading(false);
+          return;
+        }
         await wait(1000);
 
-        const mangaActivities = await fetchAniListUserMangaActivities(user.id);
+        const mangaActivities = await withTimeout(fetchAniListUserMangaActivities(user.id), 5000);
+        if (!mangaActivities) {
+          setError('Failed to fetch manga activities.');
+          setLoading(false);
+          return;
+        }
         await wait(1000);
 
         // Combine both activity arrays
@@ -60,8 +75,8 @@ const UserStats: React.FC = () => {
     fetchData();
   }, [username]);
 
-  if (loading) return <LoadingScreen />;
-  if (error || !userData) return <div className="error">Error: {error || 'User not found'}</div>;
+  if (loading || error || !userData) return <LoadingScreen message={error || undefined} />;
+  // if (error || !userData) return <div className="error">Error: {error || 'User not found'}</div>;
 
   const stats = userData.statistics;
 
@@ -238,8 +253,8 @@ const UserStats: React.FC = () => {
                     <strong>{stats?.anime.episodesWatched ?? 0}</strong>
                   </div>
                   <div className="stat-card">
-                    <p>Minutes Watched</p>
-                    <strong>{stats?.anime.minutesWatched ?? 0}</strong>
+                    <p>Days Watched</p>
+                    <strong>{stats?.anime.minutesWatched ? (stats?.anime.minutesWatched / 1440).toFixed(2) : 0}</strong>
                   </div>
                   <div className="stat-card">
                     <p>Mean Score</p>
